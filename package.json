@@ -4,7 +4,8 @@
   "description": "Instagram Unblock Script",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "npx playwright install"  // This will install the Playwright browsers
   },
   "engines": {
     "node": ">=18.x"
