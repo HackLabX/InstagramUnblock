@@ -1,13 +1,31 @@
 {
   "name": "instagram-unblock",
   "version": "1.0.0",
-  "description": "An Appium project to interact with Instagram",
-  "main": "unblock.js",
+  "description": "A service for unblocking Instagram using Appium automation.",
+  "main": "server.js",
   "scripts": {
-    "start": "node unblock.js"
+    "start": "node server.js",
+    "install-playwright": "npx playwright install",
+    "install-appium": "npx appium driver install uiautomator2"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "appium": "^2.0.0",
-    "webdriverio": "^8.14.0"
-  }
+    "appium-uiautomator2-driver": "^2.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HackLabX/InstagramUnblock.git"
+  },
+  "author": "HackLabX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HackLabX/InstagramUnblock/issues"
+  },
+  "homepage": "https://github.com/HackLabX/InstagramUnblock#readme"
 }
