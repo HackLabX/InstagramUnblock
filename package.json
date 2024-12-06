@@ -1,0 +1,13 @@
+{
+  "name": "instagram-unblock",
+  "version": "1.0.0",
+  "description": "An Appium project to interact with Instagram",
+  "main": "unblock.js",
+  "scripts": {
+    "start": "node unblock.js"
+  },
+  "dependencies": {
+    "appium": "^2.0.0",
+    "webdriverio": "^8.14.0"
+  }
+}
