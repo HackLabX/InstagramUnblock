@@ -11,9 +11,8 @@
     "node": ">=18.x"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "playwright": "^1.49.0"
   },
-  "devDependencies": {},
   "license": "MIT"
 }
