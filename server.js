@@ -1,41 +1,54 @@
 const express = require('express');
-const { exec } = require('child_process');
-const path = require('path');
+const { remote } = require('webdriverio');
 
 const app = express();
-const port = process.env.PORT || 3000;
+app.use(express.json());
 
-// Serve static files from the public folder
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Simple route for the home page
+// Welcome message route
 app.get('/', (req, res) => {
   res.send('Welcome to the Instagram Unblock Service');
 });
 
-// Route to trigger the unblock.js script
-app.get('/unblock', (req, res) => {
-  console.log('Starting the unblock script...');
+// Endpoint to start the unblocking process
+app.post('/unblock', async (req, res) => {
+  const { username, password } = req.body;
 
-  // Execute the unblock.js script
-  exec('node unblock.js', (err, stdout, stderr) => {
-    if (err) {
-      console.error(`Error executing unblock.js: ${stderr}`);
-      res.status(500).send('Failed to execute unblock script');
-      return;
-    }
+  if (!username || !password) {
+    return res.status(400).send('Username and password are required!');
+  }
 
-    console.log(`Script executed successfully: ${stdout}`);
-    res.send('Instagram Unblock process completed');
-  });
+  try {
+    // Appium driver configuration
+    const driver = await remote({
+      path: '/wd/hub',
+      port: 4723, // Default Appium server port
+      capabilities: {
+        platformName: 'Android',
+        platformVersion: '10', // Adjust to match the device/emulator
+        deviceName: 'emulator-5554', // Adjust to match your device/emulator
+        appPackage: 'com.instagram.android',
+        appActivity: 'com.instagram.mainactivity.LauncherActivity',
+        automationName: 'UiAutomator2'
+      }
+    });
+
+    // Perform automation steps (example: login and unblock a user)
+    await driver.$('android=new UiSelector().text("Log In")').click(); // Example locator
+    await driver.$('android=new UiSelector().resourceId("username_field_id")').setValue(username); // Replace with actual ID
+    await driver.$('android=new UiSelector().resourceId("password_field_id")').setValue(password);
+    await driver.$('android=new UiSelector().text("Log In")').click();
+
+    // Add your unblocking steps here...
+    res.send('Unblocking process started!');
+    
+    await driver.deleteSession(); // Close the session
+  } catch (error) {
+    console.error('Error during unblocking process:', error);
+    res.status(500).send('An error occurred during the unblocking process.');
+  }
 });
 
-// Example route for testing, could be extended for more functionality
-app.get('/test', (req, res) => {
-  res.send('Test route for checking server');
-});
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
