@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "npx playwright install"  // This will install the Playwright browsers
+    "postinstall": "npx playwright install"
   },
   "engines": {
     "node": ">=18.x"
