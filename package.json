@@ -1,0 +1,16 @@
+{
+  "name": "instagram-unblock",
+  "version": "1.0.0",
+  "description": "Instagram Unblock Automation Script",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "playwright": "^1.18.0"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}
